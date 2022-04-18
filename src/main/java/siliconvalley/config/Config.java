@@ -15,33 +15,33 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-//Аннотация определяющая класс как конфигурацию
 @Configuration
-//Аннотация используется для подключения Spring Mvc
-@EnableWebMvc
-//Аннотация для добавления проперов
 @PropertySource("classpath:db.properties")
-//Аннотация для управления транзакциями
-@EnableTransactionManagement
-//Аннотация указает на пакеты, которые мы хотим сканировать
 @ComponentScan("siliconvalley")
+@EnableWebMvc
+@EnableTransactionManagement
 public class Config implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
-    private Environment environment;
+    private Environment env;
 
     @Autowired
-    public Config(ApplicationContext applicationContext, Environment environment) {
+    public Config(ApplicationContext applicationContext, Environment env) {
         this.applicationContext = applicationContext;
-        this.environment = environment;
+        this.env = env;
     }
 
     @Bean
@@ -50,6 +50,7 @@ public class Config implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/pages/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -61,20 +62,30 @@ public class Config implements WebMvcConfigurer {
         return templateEngine;
     }
 
+    @Bean
+    public ViewResolver viewResolver(){
+        ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+        thymeleafViewResolver.setTemplateEngine(templateEngine());
+        thymeleafViewResolver.setCharacterEncoding("UTF-8");
+        return thymeleafViewResolver;
+    }
+
+
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
         registry.viewResolver(resolver);
     }
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("db.driver"));
-        dataSource.setUsername(environment.getProperty("db.username"));
-        dataSource.setPassword(environment.getProperty("db.password"));
-        dataSource.setUrl(environment.getProperty("db.url"));
+        dataSource.setDriverClassName(env.getProperty("db.driver"));
+        dataSource.setUrl(env.getProperty("db.url"));
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
     }
 
@@ -82,18 +93,26 @@ public class Config implements WebMvcConfigurer {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
+        em.setDataSource(getDataSource());
         em.setPackagesToScan("siliconvalley");
+
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
+
         return em;
+    }
+
+    @Bean
+    public EntityManager entityManager(){
+        return entityManagerFactory().getObject().createEntityManager();
     }
 
     @Bean
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        transactionManager.setDataSource(getDataSource());
         return transactionManager;
     }
 
@@ -104,9 +123,9 @@ public class Config implements WebMvcConfigurer {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-        properties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-        properties.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         return properties;
     }
 }

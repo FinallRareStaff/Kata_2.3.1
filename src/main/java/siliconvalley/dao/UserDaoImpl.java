@@ -1,44 +1,51 @@
 package siliconvalley.dao;
 
-import org.springframework.stereotype.Repository;
 import siliconvalley.model.User;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-    @Override
-    public List<User> getAllUsers() {
-        return null;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
-    public User giveUserOnlySex(User user) {
-        return null;
+    public List<User> getAllUsers() {
+        Query query = entityManager.createQuery("SELECT u FROM User u");
+        List<User> res = query.getResultList();
+        return res;
     }
 
     @Override
     public User getUserById(long id) {
-        return null;
+        User res = entityManager.find(User.class, id);
+        return res;
     }
 
     @Override
-    public void add(User user) {
-
+    public void addUser(User user) {
+        entityManager.persist(user);
     }
 
     @Override
-    public void updateUser(User user) {
-
+    public void update(long id, User user) {
+        User userToUpdate = entityManager.find(User.class, id);
+        userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setSurname(user.getSurname());
+        userToUpdate.setName(user.getName());
+        userToUpdate.setAge(user.getAge());
     }
 
     @Override
-    public void removeUser(long id) {
-
-    }
-
-    @Override
-    public void removeUserById(long id) {
-
+    public void deleteUser(long id) {
+        entityManager.remove(entityManager.find(User.class, id));
     }
 }

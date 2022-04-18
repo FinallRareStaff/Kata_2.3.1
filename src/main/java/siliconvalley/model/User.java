@@ -1,47 +1,44 @@
 package siliconvalley.model;
 
-import com.sun.xml.bind.v2.model.core.ID;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
-    private Long id;
+    @Column(name = "id")
+    private long id;
 
-    @Column(name = "NAME", nullable = false, length = 50)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "NICK_NAME", nullable = false, length = 50)
-    private String nickName;
+    @Column(name = "surname")
+    private String surname;
 
-    @Column(name = "AGE", nullable = false, length = 50)
-    private int age;
+    @Column(name = "age")
+    private byte age;
 
-    @Column(name = "SEX", nullable = false, length = 15)
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
+    @Column(name = "email")
+    private String email;
 
     public User() {
     }
 
-    public User(String name, String nickName, int age, Sex sex) {
+    public User(long id, String name, String surname, byte age, String email) {
+        this.id = id;
         this.name = name;
-        this.nickName = nickName;
+        this.surname = surname;
         this.age = age;
-        this.sex = sex;
+        this.email = email;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,53 +50,40 @@ public class User {
         this.name = name;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public int getAge() {
+    public byte getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(byte age) {
         this.age = age;
     }
 
-    public Sex getSex() {
-        return sex;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSex(Sex sex) {
-        this.sex = sex;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(user.id, id) &&
-                Objects.equals(user.name, name) &&
-                Objects.equals(user.nickName, nickName) &&
-                Objects.equals(user.age, age) &&
-                Objects.equals(user.sex, sex);
+        return Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(age, user.age);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, nickName, age, sex);
-    }
-
-    @Override
-    public String toString() {
-        return "Id = " + id +
-                "\nName = " + name +
-                "\nNickName = " + nickName +
-                "\nAge = " + age +
-                "\nSex = " + sex;
+        return Objects.hash(name, surname, age);
     }
 }

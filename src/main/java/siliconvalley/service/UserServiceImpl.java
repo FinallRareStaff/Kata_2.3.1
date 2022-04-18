@@ -1,62 +1,50 @@
 package siliconvalley.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import siliconvalley.dao.UserDao;
 import siliconvalley.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
 
-    private final UserDao userDao;
+    private final UserDao dao;
 
-    @Autowired
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserDao dao) {
+        this.dao = dao;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return dao.getAllUsers();
     }
 
-    @Transactional
     @Override
-    public User giveUserOnlySex(User user) {
-        return userDao.giveUserOnlySex(user);
-    }
-
     @Transactional
-    @Override
     public User getUserById(long id) {
-        return userDao.getUserById(id);
+        return dao.getUserById(id);
     }
 
-    @Transactional
     @Override
-    public void add(User user) {
-        userDao.add(user);
+    @Transactional
+    public void addUser(User user) {
+        dao.addUser(user);
     }
 
-    @Transactional
     @Override
-    public void updateUser(User user) {
-        userDao.updateUser(user);
+    @Transactional
+    public void updateUser(long id, User user) {
+        dao.update(id, user);
     }
 
-    @Transactional
     @Override
-    public void removeUser(long id) {
-        userDao.removeUser(id);
-    }
-
     @Transactional
-    @Override
-    public void removeUserById(long id) {
-        userDao.removeUserById(id);
+    public void deleteUser(long id) {
+        dao.deleteUser(id);
     }
 }
