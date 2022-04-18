@@ -15,11 +15,11 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "nickname")
+    private String nickName;
 
-    @Column(name = "age")
-    private byte age;
+    @Column(name = "ladder")
+    private int ladder;
 
     @Column(name = "email")
     private String email;
@@ -27,11 +27,11 @@ public class User {
     public User() {
     }
 
-    public User(long id, String name, String surname, byte age, String email) {
+    public User(long id, String name, String nickName, int ladder, String email) {
         this.id = id;
         this.name = name;
-        this.surname = surname;
-        this.age = age;
+        this.nickName = nickName;
+        this.ladder = ladder;
         this.email = email;
     }
 
@@ -51,20 +51,20 @@ public class User {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setNickName(String surname) {
+        this.nickName = surname;
     }
 
-    public byte getAge() {
-        return age;
+    public int getLadder() {
+        return ladder;
     }
 
-    public void setAge(byte age) {
-        this.age = age;
+    public void setLadder(int ladder) {
+        this.ladder = ladder;
     }
 
     public String getEmail() {
@@ -80,11 +80,14 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(age, user.age);
+        return Objects.equals(name, user.name)
+                && Objects.equals(nickName, user.nickName)
+                && Objects.equals(ladder, user.ladder)
+                && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, age);
+        return Objects.hash(name, nickName, ladder, email);
     }
 }
