@@ -8,9 +8,9 @@
 <h3>INFO</h3>
 <div th:text="@{ID: {id} (id=${user.getId()})}"></div>
 <div th:text="@{Имя: {name} (name=${user.getName()})}"></div>
-<div th:text="@{Никнейм: {nickname} (nickname=${user.getNickName()})}"></div>
+<div th:text="@{Фамилия: {surname} (surname=${user.getSurname()})}"></div>
 <div th:text="@{Возраст: {age} (age=${user.getAge()})}"></div>
-<div th:text="@{Sex: {sex} (sex=${user.getSex()})}"></div>
+<div th:text="@{Email: {email} (email=${user.getEmail()})}"></div>
 <h4><a th:href="@{/users/{id}/edit (id=${user.getId()})}"}>Редактировать</a></h4>
 <form th:method="DELETE" th:action="@{/users/{id} (id = ${user.getId()})}" th:object="${user}">
     <input type="submit" value="Удалить"/>

@@ -1,15 +1,10 @@
 package siliconvalley.dao;
 
 import siliconvalley.model.User;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -19,15 +14,12 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public List<User> getAllUsers() {
-        Query query = entityManager.createQuery("SELECT u FROM User u");
-        List<User> res = query.getResultList();
-        return res;
+        return entityManager.createQuery("SELECT u FROM User u").getResultList();
     }
 
     @Override
     public User getUserById(long id) {
-        User res = entityManager.find(User.class, id);
-        return res;
+        return entityManager.find(User.class, id);
     }
 
     @Override

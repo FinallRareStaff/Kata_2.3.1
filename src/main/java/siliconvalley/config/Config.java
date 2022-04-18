@@ -24,7 +24,6 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -95,11 +94,9 @@ public class Config implements WebMvcConfigurer {
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(getDataSource());
         em.setPackagesToScan("siliconvalley");
-
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
-
         return em;
     }
 
