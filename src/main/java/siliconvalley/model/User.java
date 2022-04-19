@@ -9,19 +9,19 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 150)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "nickname")
+    @Column(name = "nickname", nullable = false, length = 50)
     private String nickName;
 
-    @Column(name = "ladder")
+    @Column(name = "ladder", nullable = false, length = 50)
     private int ladder;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
     public User() {
@@ -89,5 +89,14 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(name, nickName, ladder, email);
+    }
+
+    @Override
+    public String toString() {
+        return "Id = " + id +
+                "\nName = " + name +
+                "\nNickName = " + nickName +
+                "\nLadder = " + ladder +
+                "\nEmail = " + email;
     }
 }

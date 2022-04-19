@@ -1,7 +1,6 @@
 package siliconvalley.service;
 
 import siliconvalley.model.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -9,7 +8,7 @@ import java.util.List;
 public interface UserService {
     List<User> getAllUsers();
     User getUserById(long id);
-    void addUser(User user);
-    void updateUser(long id, User user);
-    void deleteUser(long id);
+    void add(User user);
+    void update(long id, User user);
+    void delete(long id);
 }

@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>New user</title>
+    <meta charset="UTF-8">
+    <title>New user</title>
 </head>
 <body>
 <form th:method="POST" th:action="@{/users}" th:object="${user}">
-  <label for="name">Имя: </label>
-  <input type="text" th:field="*{name}" id="name"/>
-  <br>
-  <label for="nickname">Никнейм: </label>
-  <input type="text" th:field="*{nickName}" id="nickname"/>
-  <br>
-  <label for="ladder">Место в рейтинге: </label>
-  <input type="number" th:field="*{ladder}" id="ladder"/>
-  <br>
-  <label for="email">Почта: </label>
-  <input type="email" th:field="*{email}" id="email"/>
-  <br>
-  <input type="submit" value="Добавить пользователя"/>
+    <label for="name">Имя: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <label for="nickname">Никнейм: </label>
+    <input type="text" th:field="*{nickName}" id="nickname"/>
+    <br>
+    <label for="ladder">Место в рейтинге: </label>
+    <input type="number" th:field="*{ladder}" id="ladder"/>
+    <br>
+    <label for="email">Почта: </label>
+    <input type="email" th:field="*{email}" id="email"/>
+    <br>
+    <input type="submit" value="Добавить пользователя"/>
 
 </form>
 </body>

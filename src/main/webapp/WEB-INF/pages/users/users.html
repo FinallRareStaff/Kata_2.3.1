@@ -11,7 +11,7 @@
 <div th:text="@{Никнейм: {nickname} (nickname=${user.getNickName()})}"></div>
 <div th:text="@{Место в рейтинге: {ladder} (ladder=${user.getLadder()})}"></div>
 <div th:text="@{Email: {email} (email=${user.getEmail()})}"></div>
-<h4><a th:href="@{/users/{id}/edit (id=${user.getId()})}"}>Редактировать</a></h4>
+<h4><a th:href="@{/users/{id}/edit (id=${user.getId()})}" }>Редактировать</a></h4>
 <form th:method="DELETE" th:action="@{/users/{id} (id = ${user.getId()})}" th:object="${user}">
     <input type="submit" value="Удалить"/>
 </form>

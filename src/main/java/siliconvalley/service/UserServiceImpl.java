@@ -2,8 +2,6 @@ package siliconvalley.service;
 
 import siliconvalley.dao.UserDao;
 import siliconvalley.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,19 +30,19 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void addUser(User user) {
-        dao.addUser(user);
+    public void add(User user) {
+        dao.add(user);
     }
 
     @Override
     @Transactional
-    public void updateUser(long id, User user) {
+    public void update(long id, User user) {
         dao.update(id, user);
     }
 
     @Override
     @Transactional
-    public void deleteUser(long id) {
-        dao.deleteUser(id);
+    public void delete(long id) {
+        dao.delete(id);
     }
 }

@@ -1,5 +1,6 @@
 package siliconvalley.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import siliconvalley.model.User;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -23,7 +24,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void addUser(User user) {
+    public void add(User user) {
         entityManager.persist(user);
     }
 
@@ -37,7 +38,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void delete(long id) {
         entityManager.remove(entityManager.find(User.class, id));
     }
 }
