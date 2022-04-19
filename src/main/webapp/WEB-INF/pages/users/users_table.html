@@ -5,23 +5,59 @@
     <title>All users</title>
 </head>
 <body>
+<style>
+    h3 {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+    }
+
+    p {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+    }
+</style>
+<h3>Список пользователей</h3>
+<hr/>
 <table>
     <tr>
-        <td>Порядковый номер</td>
-        <td>Имя</td>
-        <td>Никнейм</td>
-        <td>Место в рейтинге</td>
-        <td>Почта</td>
+        <style>
+            th {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 150%;
+            }
+
+            p {
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-size: 11pt;
+            }
+        </style>
+        <th style="background-color: yellow">Порядковый номер</th>
+        <th style="background-color: yellow">Имя</th>
+        <th style="background-color: yellow">Никнейм</th>
+        <th style="background-color: yellow">Место в рейтинге</th>
+        <th style="background-color: yellow">Почта</th>
     </tr>
     <tr th:each="user : ${users}">
-        <td th:text="${user.getId()}">id</td>
-        <td> <a th:text="${user.getName()}" th:href="@{/users/{id} (id=${user.getId()})}">name</a></td>
-        <td th:text="${user.getNickName()}">nickname</td>
-        <td th:text="${user.getLadder()}">ladder</td>
-        <td th:text="${user.getEmail()}">email</td>
+        <th style="background-color: silver" th:text="${user.getId()}">id</th>
+        <th style="background-color: silver"><a th:text="${user.getName()}"
+                                                th:href="@{/users/{id} (id=${user.getId()})}">name</a></th>
+        <th style="background-color: silver" th:text="${user.getNickName()}">nickname</th>
+        <th style="background-color: silver" th:text="${user.getLadder()}">ladder</th>
+        <th style="background-color: silver" th:text="${user.getEmail()}">email</th>
     </tr>
 </table>
 <hr/>
+<style>
+    a {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+    }
+
+    p {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+    }
+</style>
 <a href="/users/new">Добавить нового пользователя</a>
 </body>
 </html>

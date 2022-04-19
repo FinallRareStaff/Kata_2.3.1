@@ -5,6 +5,30 @@
     <title>New user</title>
 </head>
 <body>
+<style>
+    h3 {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+    }
+
+    p {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+    }
+</style>
+<h3>Создание нового пользователя</h3>
+<hr/>
+<style>
+    label {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+    }
+
+    p {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+    }
+</style>
 <form th:method="POST" th:action="@{/users}" th:object="${user}">
     <label for="name">Имя: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -18,8 +42,8 @@
     <label for="email">Почта: </label>
     <input type="email" th:field="*{email}" id="email"/>
     <br>
+    <hr/>
     <input type="submit" value="Добавить пользователя"/>
-
 </form>
 </body>
 </html>

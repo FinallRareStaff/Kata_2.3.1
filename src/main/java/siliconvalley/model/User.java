@@ -18,7 +18,7 @@ public class User {
     @Column(name = "nickname", nullable = false, length = 50)
     private String nickName;
 
-    @Column(name = "ladder", nullable = false, length = 50)
+    @Column(name = "ladder", nullable = false, length = 50, unique = true)
     private int ladder;
 
     @Column(name = "email", nullable = false, length = 50)

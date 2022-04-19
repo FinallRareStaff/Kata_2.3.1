@@ -23,7 +23,6 @@ public class UserController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") long id, Model model){
         model.addAttribute("user", userService.getUserById(id));
-        System.out.println(userService.getUserById(id).getName());
         return "users/users";
     }
 
