@@ -15,24 +15,24 @@ public class UserController {
     private UserService userService;
 
     @GetMapping()
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users/users_table";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") long id, Model model){
+    public String show(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "users/users";
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user){
+    public String newUser(@ModelAttribute("user") User user) {
         return "users/new_user";
     }
 
     @PostMapping()
-    public String createUser(@ModelAttribute("user") User user){
+    public String createUser(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/users";
     }
@@ -44,14 +44,15 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id){
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
         userService.update(id, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") long id){
+    public String deleteUser(@PathVariable("id") long id) {
         userService.delete(id);
         return "redirect:/users";
     }
+
 }
